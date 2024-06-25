@@ -1,0 +1,72 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    
+    <ul class="product-list">
+      <% if (products.length){ %>
+        <% for(let product of products){ %>
+          <li>
+              <div class="product-card">
+
+                <figure class="card-banner">
+
+                  <a href="/product/details/<%= product.id  %>" >
+                    <img src="/images/<%= product.image%>" alt="chair view" loading="lazy" width="800" height="1034" class="w-100">
+                  </a>
+                  <div class="card-actions">
+
+
+                    <% if(admin) { %>
+                      <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                          <a href="/products/edit/<%= product.id  %>" class="btn btn-secondary">Edit</a>
+                          <form action="/products/delete" method="POST">
+                              <input type="hidden" name="productId" value="<%= product.id %>">
+                              <button class="btn btn-danger">Delete</button>
+                          </form>   
+                        </div>         
+                      </div>
+                    <% } else{ %>  
+                      <a href="" class=" btn card-action-btn book-btn" >
+                        <%- include('includes/cartButton.ejs', {product:product})  %>
+                      </a>
+                  <% } %>
+                    
+                  </div>
+                </figure>
+
+                <div class="card-content">
+                  <h3 class="h4 card-title">
+                    <a href="#"><%= product.title %></a>
+                  </h3>
+                  
+                  <div class="location">
+                    <p class="loc">
+                      <%= product.category.title %>
+                    </p>
+                  </div>
+
+                  <div class="rating">
+                    <p>5 <i class="fa fa-star" aria-hidden="true"></i></p>
+                  </div>
+
+                  <div class="card-price">
+                    <data value="48.75">&#x20b9;<%= product.price %></data>
+
+                    <data value="65.00">&#x20b9;<%= product.Initialprice %></data>
+                  </div>
+                </div>
+
+              </div>
+          </li>
+        <% } %>  
+      <% }else{ %>  
+        <div>
+          <h3 style="color: red;">No Products Available</h3>
+      </div>
+
+  <% } %>
+  </ul>
+
+    <%- include('includes/footer.ejs') %>

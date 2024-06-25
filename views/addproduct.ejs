@@ -1,0 +1,106 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/add.css">
+</head>
+<body>
+<%- include('includes/navigation.ejs') %>
+    
+<section>
+   
+    <div class="container">
+        <div class="content">
+        <form method='POST' action="<%= edit ? '/products/edit' : '/products/add' %>" enctype="multipart/form-data">
+            <% if(edit) { %>
+                <input type="hidden" name="productId" value="<%= product.id %>">
+            <% } %>
+            <div class="topic">Add</div>
+            <div class="input-box">
+            <!-- <input type="text" name="name" required value="">
+            <label>Enter your name</label>
+            </div>
+
+
+            <div class="input-box">
+            <input type="text" name="email" required value="">
+            <label>Enter your email</label>
+            </div>
+
+            <div class="input-box">
+            <input type="text" name="mobile" required value="user phone">
+            <label>Enter your Phone no</label>
+            </div> -->
+
+            <div class="input-box">
+            <input type="text" name="title" value="<%= edit ? product.title : '' %>" required>
+            <label>Title</label>
+            </div>
+
+            <!-- <div class="input-box">
+                <input type="text"  name="imageurl" value="<%= edit ? product.imageurl : '' %>" required>
+                <label>Image Url</label>
+            </div> -->
+
+            <!-- <div class="input-box">
+            <input type="text" name="location" required>
+            <label>Enter Turf's Location</label>
+            </div> -->
+
+            <div class="input-box">
+            <label>Type</label>
+            <select class="box" name="categoryId">
+                <option value="">Category</option>
+                    <% for (let category of categories) { %>
+                        <option value="<%= category.id %>" <%= edit && category.id === product.categoryId ? "selected" : ""  %>><%= category.title %></option>
+                    <% } %>
+            </select>
+            </div>
+
+            <div class="message-box">
+            <textarea name="description" id="description" placeholder="Enter description" required style="padding:5px;"><%= edit ? product.description : ''%></textarea>
+            </div>
+
+
+
+            <!-- <div class="input-box">
+            <input type="text"  required>
+            <label>Intial Price</label>
+            </div> -->
+
+            <div class="input-box">
+            <input type="text" name="Initialprice"  value="<%= edit ? product.Initialprice : '' %>" required>
+            <label>Price</label>
+            </div>
+
+            <div class="input-box">
+            <input type="text" name="price"  value="<%= edit ? product.price : '' %>" required>
+            <label>Offer Price</label>
+            </div>
+
+            <div class="input-box">
+            <input type="file" name="image" style="padding-top:12px">
+            <label>Add Image</label>
+            </div>
+
+            <div class="input-box">
+            <input type="file" name="model" style="padding-top:12px">
+            <label>Add Model</label>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-box">
+                            <!-- <input type="submit" name="save" value="SAVE" > -->
+                            <button class="btn btn-outline-primary"><%= edit ? 'Edit Product' : 'Add Product' %></button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            
+            <span id="msg"></span>
+            
+        </form>
+        </div>
+    </div>
+</section>
+    
+<%- include('includes/footer.ejs') %>

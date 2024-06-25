@@ -1,0 +1,66 @@
+<%- include('includes/head.ejs') %>
+  </head>
+  <body>
+    <%- include('includes/navigation.ejs') %>
+
+    <ul class="product-list">
+        <% if(cartproducts ){ %>
+            <% for(let product of cartProducts) { %>
+                <li>
+                    <div class="product-card">
+    
+                    <figure class="card-banner">
+    
+                        <a href="/product/details/<%= product.id  %>" >
+                        <img src="/images/<%= product.image%>" alt="chair view" loading="lazy" width="800" height="1034" class="w-100">
+                        </a>
+                        
+                    </figure>
+    
+                        <div class="card-content">
+                            <h3 class="h4 card-title">
+                            <a href="#"><%= product.title %></a>
+                            </h3>
+                            
+                            <div class="location">
+                            <p class="loc">
+                                Quantity: <%= product.cartItem.quantity %>
+                            </p>
+                            </div>
+        
+                            <div class="card-price">
+                            <data value="48.75">&#x20b9;<%= product.price %></data>
+        
+
+                            <div class="rating">
+                                <p>Total Price: <%= +product.cartItem.quantity * +product.price %></p>
+                              </div>
+
+                            <div>
+                                <form action="/cart/delete-item" method="post">
+                                    <input type="hidden" name="productId" value="<%= product.id  %>">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                            
+                        </div>
+    
+                    </div>
+                </li>        
+            <% } %>    
+
+            <div class="text-end">
+                <h3>TotalPrice: $<%= totalPrice %></h3>
+            </div>
+
+            <div class="text-center my-3">
+                <form action="/order" method="POST">
+                    <button class="btn btn-primary" >Order Now!</button>
+                </form>
+            </div>
+        <% } else{ %>
+            <div>NO products in cart</div>
+        <% } %>
+    </ul>
+    <%- include('includes/footer.ejs') %>
+
